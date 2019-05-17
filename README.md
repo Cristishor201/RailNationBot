@@ -64,7 +64,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details about my code of cond
 
 ## Versioning
 
-&ndash;  V1.0 - initial version
+&ndash;  [V1.0](https://github.com/Cristishor201/RailNationBot/releases/tag/V1.0) - initial version
 
 ## Authors
 
