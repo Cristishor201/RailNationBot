@@ -2,7 +2,7 @@ import pyautogui, time, os
 import cv2
 import numpy as np
 
-os.chdir('C://Users//Cristian//MyPythonScripts//railBonus//img') #change here with your path
+os.chdir('C://Users//Cristian//Documents//GitHub//RailNationBot//code//img') #change here with your path
 
 stationBonus = [[1147, 722], [1503, 653], [1728, 489]] # [x,y]
 stationVideo = [[1141, 663], [1492, 589], [1723, 433]]
@@ -12,6 +12,9 @@ continueYou = [1006, 747]
 theNext = [1009, 934]
 theBack = [907, 933]
 lotery = [1101, 311]
+
+closeVideo = [1440, 325]
+restartVideo = [879, 712]
 
 def soundOff():
     pyautogui.moveTo(1780, 1051, duration=1)
@@ -65,6 +68,9 @@ def Bonus():
         time.sleep(35)
 
         # search for image
+        if appearIMG('video_not_load.jpg') == True: #if video doesn't starting
+            reloadVideo()
+            time.sleep(35)
         if appearIMG('watch_bonus_you.jpg') == True:
             pyautogui.click(watchYou[0], watchYou[1], interval=1)
             time.sleep(35)
@@ -77,8 +83,14 @@ def Bonus():
         
         pyautogui.click(1160, 399, interval=0.3) # close reduction lotery tickets
 
-soundOff() # close sound
+def reloadVideo():
+    pyautogui.click(closeVideo[0], closeVideo[1])
+    time.sleep(4)
+    pyautogui.click(restartVideo[0], restartVideo[1])
+    time.sleep(4)
 
+soundOff() # close sound
+'''
 #### Station 1 time (first)
 station() # for me at the begining
 pyautogui.moveTo(theNext[0], theNext[1], duration=1)
@@ -92,7 +104,7 @@ while(appearIMG('close_mode_while.jpg') == True): # while I don't reach my stati
     
     if(appearIMG('close_mode_while.jpg') == False):
         break
-
+'''
 #### Watch video 1 time (first)
 Bonus() # for me at the begining
 pyautogui.moveTo(theNext[0], theNext[1], duration=1)
@@ -114,6 +126,20 @@ pyautogui.click()
 
 while(appearNext('close_mode_while.jpg') == True): # while I don't reach my station
     station()
+    pyautogui.moveTo(theNext[0], theNext[1], duration=1)
+    pyautogui.click()
+    time.sleep(3)
+    
+    if(appearIMG('close_mode_while.jpg') == False):
+        break
+
+#### Watch video 2 times (second)
+Bonus() # for me at the begining
+pyautogui.moveTo(theNext[0], theNext[1], duration=1)
+pyautogui.click()
+
+while(appearIMG('close_mode_while.jpg') == True): # while I don't reach my station
+    Bonus()
     pyautogui.moveTo(theNext[0], theNext[1], duration=1)
     pyautogui.click()
     time.sleep(3)
