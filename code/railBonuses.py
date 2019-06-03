@@ -14,6 +14,7 @@ theBack = [907, 933]
 lotery = [1101, 311]
 
 closeVideo = [1440, 325]
+closeButton = [959, 614]
 restartVideo = [879, 712]
 
 def soundOff():
@@ -54,8 +55,12 @@ def station(): # colect all rewards from one station
     time.sleep(2)
     for i in range(3):
         pyautogui.click(stationBonus[i][0], stationBonus[i][1], interval=1)
-        
-        if (appearIMG('lotery_free.jpg') == True): # free ticket from others
+
+        if (appearIMG('bonus_cant.jpg') == True)or(appearIMG('Bonus_colected_already.jpg') == True):
+            #exeed limit account & bonus collected already
+            pyautogui.click(closeButton[0], closeButton[1])
+            continue
+        if appearIMG('lotery_free.jpg') == True: # free ticket from others
             pyautogui.click(lotery[0], lotery[1], interval=3)
             time.sleep(3)
         
@@ -65,12 +70,13 @@ def Bonus():
     time.sleep(2)
     for j in range(3):
         pyautogui.click(stationVideo[j][0], stationVideo[j][1], interval=1)
-        time.sleep(35)
-
-        # search for image
-        if appearIMG('video_not_load.jpg') == True: #if video doesn't starting
+        time.sleep(4)
+        if appearIMG('video_not_load2.jpg') == True: #if video doesn't starting
             reloadVideo()
             time.sleep(35)
+        else:
+            time.sleep(31)
+
         if appearIMG('watch_bonus_you.jpg') == True:
             pyautogui.click(watchYou[0], watchYou[1], interval=1)
             time.sleep(35)
@@ -130,7 +136,7 @@ while(appearNext('close_mode_while.jpg') == True): # while I don't reach my stat
     pyautogui.click()
     time.sleep(3)
     
-    if(appearIMG('close_mode_while.jpg') == False):
+    if appearIMG('close_mode_while.jpg') == False:
         break
 
 #### Watch video 2 times (second)
