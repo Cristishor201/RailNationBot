@@ -66,12 +66,26 @@ def station(): # colect all rewards from one station
         
         pyautogui.click(1160, 399, interval=0.3) # close reduction lotery tickets
 
+def collectBonuses():
+    station() # for me at the begining
+    pyautogui.moveTo(theNext[0], theNext[1], duration=1)
+    pyautogui.click()
+
+    while(appearIMG('close_mode_while.jpg') == True): # while I don't reach my station
+        station()
+        pyautogui.moveTo(theNext[0], theNext[1], duration=1)
+        pyautogui.click()
+        time.sleep(3)
+        
+        if(appearIMG('close_mode_while.jpg') == False):
+            break
+
 def Bonus():
     time.sleep(2)
     for j in range(3):
         pyautogui.click(stationVideo[j][0], stationVideo[j][1], interval=1)
         time.sleep(4)
-        if appearIMG('video_not_load2.jpg') == True: #if video doesn't starting
+        if appearIMG('video_not_load.jpg') == True: #if video doesn't starting
             reloadVideo()
             time.sleep(35)
         else:
@@ -89,6 +103,20 @@ def Bonus():
         
         pyautogui.click(1160, 399, interval=0.3) # close reduction lotery tickets
 
+def watchvideos():
+    Bonus() # for me at the begining
+    pyautogui.moveTo(theNext[0], theNext[1], duration=1)
+    pyautogui.click()
+
+    while(appearIMG('close_mode_while.jpg') == True): # while I don't reach my station
+        Bonus()
+        pyautogui.moveTo(theNext[0], theNext[1], duration=1)
+        pyautogui.click()
+        time.sleep(3)
+        
+        if(appearIMG('close_mode_while.jpg') == False):
+            break
+
 def reloadVideo():
     pyautogui.click(closeVideo[0], closeVideo[1])
     time.sleep(4)
@@ -97,61 +125,13 @@ def reloadVideo():
 
 soundOff() # close sound
 '''
-#### Station 1 time (first)
-station() # for me at the begining
-pyautogui.moveTo(theNext[0], theNext[1], duration=1)
-pyautogui.click()
-
-while(appearIMG('close_mode_while.jpg') == True): # while I don't reach my station
-    station()
-    pyautogui.moveTo(theNext[0], theNext[1], duration=1)
-    pyautogui.click()
-    time.sleep(3)
-    
-    if(appearIMG('close_mode_while.jpg') == False):
-        break
+collectBonuses() # Station 1 time (first)
 '''
-#### Watch video 1 time (first)
-Bonus() # for me at the begining
-pyautogui.moveTo(theNext[0], theNext[1], duration=1)
-pyautogui.click()
 
-while(appearIMG('close_mode_while.jpg') == True): # while I don't reach my station
-    Bonus()
-    pyautogui.moveTo(theNext[0], theNext[1], duration=1)
-    pyautogui.click()
-    time.sleep(3)
-    
-    if(appearIMG('close_mode_while.jpg') == False):
-        break
+watchvideos() # Watch video 1 time (first)
+collectBonuses() # Station 2 times (second)
 
-#### Station 2 times (second)
-station() # for me at the begining
-pyautogui.moveTo(theNext[0], theNext[1], duration=1)
-pyautogui.click()
-
-while(appearNext('close_mode_while.jpg') == True): # while I don't reach my station
-    station()
-    pyautogui.moveTo(theNext[0], theNext[1], duration=1)
-    pyautogui.click()
-    time.sleep(3)
-    
-    if appearIMG('close_mode_while.jpg') == False:
-        break
-
-#### Watch video 2 times (second)
-Bonus() # for me at the begining
-pyautogui.moveTo(theNext[0], theNext[1], duration=1)
-pyautogui.click()
-
-while(appearIMG('close_mode_while.jpg') == True): # while I don't reach my station
-    Bonus()
-    pyautogui.moveTo(theNext[0], theNext[1], duration=1)
-    pyautogui.click()
-    time.sleep(3)
-    
-    if(appearIMG('close_mode_while.jpg') == False):
-        break
+watchvideos() # Watch video 2 times (second)
 
 soundOff() # turn on the sound
 print("All bonuses has been collected successfully !")
