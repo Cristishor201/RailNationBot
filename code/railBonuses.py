@@ -2,7 +2,7 @@ import pyautogui, time, os
 import cv2
 import numpy as np
 
-os.chdir('C://Users//Cristian//Documents//GitHub//RailNationBot//code//img') #change here with your path
+os.chdir('.//img')
 
 stationBonus = [[1147, 722], [1503, 653], [1728, 489]] # [x,y]
 stationVideo = [[1141, 663], [1492, 589], [1723, 433]]
@@ -85,9 +85,12 @@ def Bonus():
     for j in range(3):
         pyautogui.click(stationVideo[j][0], stationVideo[j][1], interval=1)
         time.sleep(4)
-        if appearIMG('video_not_load.jpg') == True: #if video doesn't starting
+        if appearIMG('video_load.jpg') == False: #if video doesn't starting
             reloadVideo()
-            time.sleep(35)
+            time.sleep(4)
+            if appearIMG('video_load.jpg') == False:
+                reloadVideo()
+            time.sleep(31)
         else:
             time.sleep(31)
 
@@ -121,17 +124,12 @@ def reloadVideo():
     pyautogui.click(closeVideo[0], closeVideo[1])
     time.sleep(4)
     pyautogui.click(restartVideo[0], restartVideo[1])
-    time.sleep(4)
 
-soundOff() # close sound
-'''
-collectBonuses() # Station 1 time (first)
-'''
+try:
+    while True: # infinite loop
+        watchvideos() 
+        collectBonuses()
+        print("All bonuses has been collected successfully !")
+except FailSafeException:
+    print("Program stoped by user.")
 
-watchvideos() # Watch video 1 time (first)
-collectBonuses() # Station 2 times (second)
-
-watchvideos() # Watch video 2 times (second)
-
-soundOff() # turn on the sound
-print("All bonuses has been collected successfully !")
