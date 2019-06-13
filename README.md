@@ -5,9 +5,10 @@ A bot which automatically plays the game [Rail Nation](https://www.rail-nation.c
 
 ## Features
 
-  -  collect all the bonuses for you & your team
-  -  watch all the ads for you & your team
-  -  mute the sound of the ads during its running
+  - [x] collect all the bonuses for you & your team
+  - [x] watch all the ads for you & your team
+  - [ ] reload page, when video it stucks
+  - [ ] stop it by a hot key, or the stop button
 
 ## Motivation
 
@@ -42,15 +43,9 @@ And in **Screenshot 3** -> you can see an example of video (ad), how it's lookin
    1. Put the folder in your name documents or wherever you want.  
 Make sure you don't change the name forlder `img`, or any image name.
 
-   2. Rename your path on line 5, in the `railBonuses.py`  
-Rename it with your current path.  
-```
-os.chdir('C://Users//Cristian//MyPythonScripts//code//img')
-```
-
 ## Usage
 
-1. Make sure you press the button `Train station` in your middle-right toolbar, and you have full screen of your browser. For now it works only for 1920 x 1080 resolution.
+1. Make sure you press the button `Train station` in your middle-right toolbar, and you have full screen of your browser. For now it works only for `1920 x 1080` resolution.
 
 2. Then open the program, and put it on the left side of your window above the browser. Then press F5, or Run/Run module , and then it will firstly mute the sound for you, and then starting to collect ... and at the end, it turn on the sound, back. 
 
