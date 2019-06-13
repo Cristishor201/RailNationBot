@@ -1,5 +1,5 @@
 
 Thumbs.db
 .gitignore
-*.db
 code/img/Thumbs.db
+.idea
