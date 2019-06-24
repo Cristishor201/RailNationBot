@@ -9,19 +9,13 @@ stationVideo = [[1141, 663], [1492, 589], [1723, 433]]
 
 watchYou = [1044, 788]
 continueYou = [1006, 747]
-theNext = [1009, 934]
-theBack = [907, 933]
+theBack = [907, 933] # time.sleep(1) ; pyautogui.press('left')
 lotery = [1101, 311]
 
 closeVideo = [1440, 325]
-closeButton = [959, 614]
+closeButton = [959, 614] 
 restartVideo = [879, 712]
-
-def soundOff():
-    pyautogui.moveTo(1780, 1051, duration=1)
-    pyautogui.click()
-    pyautogui.moveTo(1790, 907, duration=0.7)
-    pyautogui.click()
+# close mode (from others) : pyautogui.press('esc') | also good for exit from Train Station.
 
 def imagesearch(image, precision=0.8):
     im = pyautogui.screenshot()
@@ -68,13 +62,13 @@ def station(): # colect all rewards from one station
 
 def collectBonuses():
     station() # for me at the begining
-    pyautogui.moveTo(theNext[0], theNext[1], duration=1)
-    pyautogui.click()
+    time.sleep(1)
+    pyautogui.press('right') # next
 
     while(appearIMG('close_mode_while.jpg') == True): # while I don't reach my station
         station()
-        pyautogui.moveTo(theNext[0], theNext[1], duration=1)
-        pyautogui.click()
+        time.sleep(3)
+        pyautogui.press('right') # next
         time.sleep(3)
         
         if(appearIMG('close_mode_while.jpg') == False):
@@ -108,13 +102,13 @@ def Bonus():
 
 def watchvideos():
     Bonus() # for me at the begining
-    pyautogui.moveTo(theNext[0], theNext[1], duration=1)
-    pyautogui.click()
+    time.sleep(1)
+    pyautogui.press('right') # next
 
     while(appearIMG('close_mode_while.jpg') == True): # while I don't reach my station
         Bonus()
-        pyautogui.moveTo(theNext[0], theNext[1], duration=1)
-        pyautogui.click()
+        time.sleep(1)
+        pyautogui.press('right') # next
         time.sleep(3)
         
         if(appearIMG('close_mode_while.jpg') == False):
@@ -126,10 +120,14 @@ def reloadVideo():
     pyautogui.click(restartVideo[0], restartVideo[1])
 
 try:
+    print("Starting program ...")
     while True: # infinite loop
         watchvideos() 
         collectBonuses()
         print("All bonuses has been collected successfully !")
+        
 except FailSafeException:
     print("Program stoped by user.")
+
+print("Program stoped by user.")
 
