@@ -58,8 +58,11 @@ If you want to stop it, you need to move the mouse to the top-left corner of you
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details about my code of conduit.
 
 ## Versioning
+All changes can be see at [CHANGELOG.md](CHANGELOG.md)
 
-&ndash;  [V1.0](https://github.com/Cristishor201/RailNationBot/releases/tag/V1.0) - initial version
+&ndash; [V1.1](https://github.com/Cristishor201/RailNationBot/releases/tag/V1.1)
+
+&ndash; [V1.0](https://github.com/Cristishor201/RailNationBot/releases/tag/V1.0) - initial version
 
 ## Authors
 
