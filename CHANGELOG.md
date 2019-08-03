@@ -2,12 +2,20 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-
-## [1.2] - 2019-06-13
 ## Added
 - Create ChangeLog.md for changes about this project
+- check if the widget exist
+- check if the widget it's open
+- option for skiping the video if it can
+- detect if a video it's ready to be watched
 
-## [1.1] - 2019-05-30
+## Changed
+- new technique for reloading the video if stops
+
+## Fixed
+- if the white window appear instead of video
+
+## [1.1] - 2019-06-13
 ## Added
 - update .gitignore
 - replace the absolut path of the images's folder with the relative path
@@ -25,7 +33,7 @@ All notable changes to this project will be documented in this file.
 ## Removed
 - turn off the sound, as you can turn off the sound of the tab
 
-## [1.0] - 2019-05-06
+## [1.0] - 2019-05-18
 ### Added
 
 - added the licence
