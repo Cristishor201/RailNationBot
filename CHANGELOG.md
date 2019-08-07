@@ -4,16 +4,21 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ## Added
 - Create ChangeLog.md for changes about this project
-- check if the widget exist
-- check if the widget it's open
+- configure if widget it's not install at all
+- open the widget, if it's hiden
+- update widget position, if it's misplaced by the default position
+- print the required modification, in case user want less time loading
 - option for skiping the video if it can
-- detect if a video it's ready to be watched
 
 ## Changed
 - new technique for reloading the video if stops
 
 ## Fixed
 - if the white window appear instead of video
+
+## Removed
+- technique of collecting bonuses in a row
+- technique of watched videos in a row
 
 ## [1.1] - 2019-06-13
 ## Added
