@@ -14,6 +14,7 @@ watchYou = [1044, 788]
 continueYou = [1006, 747]
 skipVideo = [1419, 725]
 lotery = [1101, 311]
+
 stop = False # initialy -----------------------------------------------------
 
 closeVideo = [1440, 325]
@@ -29,19 +30,55 @@ def if_widget_present(): # verify at init if the widget it's on home screen
     else:
         return False
 
-def if_widget_position(): # verify position of widget on the screen
+def if_widget_open(): # verify if the widget it's open
     if image_on_screen('association_2.JPG') == True:
         return True
     else:
         return False
 
+def if_widget_position(): # verify position of widget on the screen
+    x, y = image_on_screen('association_2.JPG', 0.8, True)
+    if (x == 122) and (y == 200): # default position
+        return True
+    else:
+        return False
+
 def update_widget(word): # update setup widget (if required)
-    if word == 'widget':
-        print("update widget")
+    if word == 'widget1':
+        pyautogui.click(80, 998)
+        time.sleep(1)
+        pyautogui.click(80, 836)
+        time.sleep(3)
+    elif word == 'widget2':
+        pyautogui.click(80, 998) # widget is minified
+        time.sleep(3)
     elif word == 'position':
-        print("update position of widget")
-    ################################################ mai trebuie aici
-    return None
+        # default - 122 - 200
+        x, y = image_on_screen('association_2.JPG', 0.8, True)
+        refresh[0] = x + 195 # update refresh_x
+        refresh[1] = y + 7 # update refresh_y
+        x1 = x+195 ; y1 = y + 7
+
+        buttons[0][0] = x1 - 150 # button_1_x
+        buttons[0][1] = y1 + 65  # button_1_y
+        x1 -= 150 ; y1 += 65
+        buttons[1][0] = x1 + 78  # button_2_x
+        buttons[1][1] = y1       # button_2_y
+        x1 += 75
+        buttons[2][0] = x1 + 78  # button_3_x
+        buttons[2][1] = y1       # button_3_y
+        
+        regions[0] = [x+11, y+60, 70, 30] # first region
+        x += 11 ; y +=60
+        regions[1] = [x+76, y, 70, 30] # second region
+        x += 76
+        regions[2] = [x+78, y, 70, 30] # second region
+        print("\nupdate manually if you want for faster reload:\nrefresh=" + str(refresh))
+        print("buttons= [" + str(buttons[0]) + "," + str(buttons[1]) + "," + str(buttons[2]) + "]")
+        print("regions= [" + str(regions[0]) + "," + str(regions[1]) + "," + str(regions[2]) + "]\n")
+        
+    else:
+        return False
 
 def if_green_btn():
     ################################################ mai trebuie aici
@@ -65,7 +102,7 @@ def image_in_region(image, region=(0, 0, 1, 1), precision=0.8): # region screen 
         print('image in region')
         return True  # image match
 
-def image_on_screen(image, precision=0.8): # full screen option
+def image_on_screen(image, precision=0.8, link=False): # full screen option
     img = pyautogui.screenshot()
 
     #img.save('testarea.png') usefull for debugging purposes, this will save the captured region as "testarea.png"
@@ -76,20 +113,21 @@ def image_on_screen(image, precision=0.8): # full screen option
 
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+    if link == True: # if I want to take the position of image
+        return max_loc
     if max_val < precision:
         return False # image is not founded
     else:
-        print('image on screen')
-        return True  # image match
+        return True # image match
 
 def bonus(x, y): # [x, y] of the button
     pyautogui.click(x, y, interval=1)
 
     if (image_on_screen('bonus_cant.jpg') == True)or(image_on_screen('Bonus_colected_already.jpg') == True):
         #exeed limit account & bonus collected already
-        pyautogui.click(closeButton[0], closeButton[1])
+        pyautogui.click(closeButton)
     if image_on_screen('lotery_free.jpg') == True: # free ticket from others
-        pyautogui.click(lotery[0], lotery[1], interval=3)
+        pyautogui.click(lotery)
         time.sleep(3)
         
     pyautogui.click(1160, 399, interval=0.3) # close reduction lotery tickets
@@ -99,18 +137,18 @@ def video(x, y): # [x, y] of the button
     pyautogui.click(x, y, interval=1)
     time.sleep(8.5)
     if image_on_screen('skip.jpg') == True:  # skip video if it can
-        pyautogui.click(skipVideo[0], skipVideo[1])
+        pyautogui.click(skipVideo)
         ok = True
         time.sleep(3)
     #if is no video / blank screen
-    if (image_on_screen('video_not_load.jpg') == True) or (image_on_screen('no_video.jpg', 0.9) == True):
+    if (image_on_screen('video_not_load.jpg', 0.9) == True) or (image_on_screen('no_video.jpg', 0.9) == True):
         reloadVideo() # need of reload
         time.sleep(8.5)
 
         if image_on_screen('skip.jpg') == True: # skip the video if it can
-            pyautogui.click(skipVideo[0], skipVideo[1])
+            pyautogui.click(skipVideo)
             time.sleep(3)
-        if (image_on_screen('video_not_load.jpg') == True) or (image_on_screen('no_video.jpg', 0.9) == True):
+        if (image_on_screen('video_not_load.jpg') == True) or (image_on_screen('no_video.jpg', 0.92) == True):
             reloadVideo()
             
         time.sleep(31)
@@ -122,25 +160,25 @@ def video(x, y): # [x, y] of the button
         pyautogui.click(watchYou[0], watchYou[1], interval=1)
         time.sleep(8.5)
         if image_on_screen('skip.jpg') == True: # skip the video if it can
-            pyautogui.click(skipVideo[0], skipVideo[1])
+            pyautogui.click(skipVideo)
             time.sleep(3)
         else:
             time.sleep(26.5)
      
     if image_on_screen('Continue_last.jpg') == True:
-        pyautogui.click(continueYou[0], continueYou[1], interval=1)
+        pyautogui.click(continueYou)
         time.sleep(3)
     if image_on_screen('lotery_free.jpg') == True:
-        pyautogui.click(lotery[0], lotery[1], interval=3)
-        time.sleep(3)
+        pyautogui.click(lotery)
+        time.sleep(5)
         
     pyautogui.click(1160, 399, interval=0.3) # close reduction lotery tickets
 
 
 def reloadVideo():
-    pyautogui.click(closeVideo[0], closeVideo[1])
+    pyautogui.click(closeVideo)
     time.sleep(4)
-    pyautogui.click(restartVideo[0], restartVideo[1])
+    pyautogui.click(restartVideo)
 
 #try:
     #while True: # infinite loop
@@ -151,18 +189,15 @@ def reloadVideo():
 if __name__ == "__main__":
     print("Program started at " + date.now().strftime("%H:%M"))
 
-    if if_widget_present() == True:
-        # open it
-        print("open the widget...")
-    else:
-        update_widget(widget) # update widget
-
-    if if_widget_position() == True:
-        # do nothing. it's ok
-        print("it's ok")
-    else:
-        update_widget(position) # update the position of it
-        
+    if if_widget_present() == False:
+        update_widget('widget1') # install the widget
+    
+    if if_widget_open() == False:
+       update_widget('widget2') # open the widget
+    
+    if if_widget_position() == False:
+        update_widget('position') # update the position
+    
     try:
         #refresh btn
         pyautogui.click(refresh[0], refresh[1])
@@ -193,13 +228,7 @@ if __name__ == "__main__":
         #if ctrl + esc -> break
         #pasive loop - print the time when is passive, every 15 min
 
-        
-    except FailSafeException:
-        print("Program stoped by user.")
     except KeyboardInterrupt:
         print("Program stoped by user.")
     finally:
         print("Program ended at " + date.now().strftime("%H:%M"))
-
-    
-
