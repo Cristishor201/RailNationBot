@@ -2,6 +2,8 @@ import pyautogui, time, os
 import cv2
 import numpy as np
 from datetime import datetime as date
+import logging #=============================== testing
+logging.basicConfig(filename='errorsLogs.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 os.chdir('.//img')
 
@@ -84,7 +86,7 @@ def if_green_btn():
     ################################################ mai trebuie aici
     return True
 
-def image_in_region(image, region=(0, 0, 1, 1), precision=0.8): # region screen option
+def image_in_region(image, region, precision=0.8): # region screen option
     x, y, width, height = region
     img = pyautogui.screenshot(region=(x, y, width, height))
                           
@@ -99,8 +101,23 @@ def image_in_region(image, region=(0, 0, 1, 1), precision=0.8): # region screen 
     if max_val < precision:
         return False # image is not founded
     else:
-        print('image in region')
         return True  # image match
+
+def color_in_region(region, color_list=([40, 90, 40],[56, 128, 60]), precision=0.8): # if is color in region image
+    x, y, width, height = region
+    img = pyautogui.screenshot(region=(x, y, width, height))
+    lower, upper = color_list
+
+    lower = np.array(lower, dtype="uint8") # np array
+    upper = np.array(upper, dtype="uint8")
+    img = np.array(img, dtype="uint8")
+    
+    mask = cv2.inRange(img, lower, upper)
+    print(mask)
+    cv2.imshow('mask', mask)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    return None
 
 def image_on_screen(image, precision=0.8, link=False): # full screen option
     img = pyautogui.screenshot()
@@ -122,7 +139,18 @@ def image_on_screen(image, precision=0.8, link=False): # full screen option
 
 def bonus(x, y): # [x, y] of the button
     pyautogui.click(x, y, interval=1)
+    
+    #============================================== begining of testing
+    if (image_on_screen('video_not_load.jpg', 0.9) == True): # if video don't load after waiting for it
+        logging.critical("--- D1 - video_not_load")
 
+        if (image_on_screen('video_not_load.jpg', 0.9) == True): # if video don't load after waiting for it
+            logging.critical("--- D2 - video_not_load")
+            reloadVideo() # need of reload
+            time.sleep(31)
+        
+    #============================================== end of testing
+    
     if (image_on_screen('bonus_cant.jpg') == True)or(image_on_screen('Bonus_colected_already.jpg') == True):
         #exeed limit account & bonus collected already
         pyautogui.click(closeButton)
@@ -141,7 +169,9 @@ def video(x, y): # [x, y] of the button
         ok = True
         time.sleep(3)
     #if is no video / blank screen
+    '''
     if (image_on_screen('video_not_load.jpg', 0.9) == True) or (image_on_screen('no_video.jpg', 0.9) == True):
+        print("--- A1 - video_not_load / no_video")
         reloadVideo() # need of reload
         time.sleep(8.5)
 
@@ -149,12 +179,53 @@ def video(x, y): # [x, y] of the button
             pyautogui.click(skipVideo)
             time.sleep(3)
         if (image_on_screen('video_not_load.jpg') == True) or (image_on_screen('no_video.jpg', 0.92) == True):
+            print("--- A2 - video_not_load / no_video")
             reloadVideo()
             
         time.sleep(31)
     else:
         if ok == False: # if already I skip it
             time.sleep(31)
+            
+    if (image_on_screen('video_not_load.jpg', 0.9) == True): # if video don't load after waiting for it
+        print("--- A3 - video_not_load")
+        reloadVideo() # need of reload
+        time.sleep(31)
+    '''
+    #===================================== begining of testing
+    if (image_on_screen('video_not_load.jpg', 0.9) == True):
+        logging.debug("--- A1 - video_not_load")
+        reloadVideo() # need of reload
+        time.sleep(8.5)
+
+        if image_on_screen('skip.jpg') == True: # skip the video if it can
+            pyautogui.click(skipVideo)
+            time.sleep(3)
+        if (image_on_screen('video_not_load.jpg') == True): 
+            logging.debug("--- A2 - video_not_load")
+            reloadVideo()
+            
+        time.sleep(31)
+    elif (image_on_screen('no_video.jpg', 0.9) == True):
+        logging.debug("--- A1 - no_video")
+        reloadVideo() # need of reload
+        time.sleep(8.5)
+
+        if (image_on_screen('no_video.jpg', 0.92) == True):
+            logging.debug("--- A2 - no_video")
+            reloadVideo()
+
+        time.sleep(31)
+    else:
+        if ok == False: # if already I skip it
+            time.sleep(31)
+
+    if (image_on_screen('video_not_load.jpg', 0.9) == True): # if video don't load after waiting for it
+        logging.info("--- A3 - video_not_load")
+
+    if (image_on_screen('no_video.jpg', 0.92) == True):
+            logging.info("--- A2 - no_video")
+    #============================================ end testing
     
     if image_on_screen('watch_bonus_you.jpg') == True:
         pyautogui.click(watchYou[0], watchYou[1], interval=1)
@@ -164,7 +235,18 @@ def video(x, y): # [x, y] of the button
             time.sleep(3)
         else:
             time.sleep(26.5)
-     
+    #============================================ begining of testing
+    if (image_on_screen('video_not_load.jpg', 0.9) == True): # if video don't load before second
+        logging.warning("--- B1 - video_not_load")
+        reloadVideo() # need of reload
+        time.sleep(8.5)
+
+        if (image_on_screen('video_not_load.jpg', 0.9) == True): # if video don't load after waiting for it
+            logging.warning("--- B2 - video_not_load")
+            reloadVideo() # need of reload
+        time.sleep(31)
+    #============================================= end of testing
+    
     if image_on_screen('Continue_last.jpg') == True:
         pyautogui.click(continueYou)
         time.sleep(3)
@@ -179,12 +261,6 @@ def reloadVideo():
     pyautogui.click(closeVideo)
     time.sleep(4)
     pyautogui.click(restartVideo)
-
-#try:
-    #while True: # infinite loop
-        #collect
-#except FailSafeException:
-    #print("Program stoped by user.")
 
 if __name__ == "__main__":
     print("Program started at " + date.now().strftime("%H:%M"))
@@ -222,6 +298,9 @@ if __name__ == "__main__":
                 else:
                     bonus(buttons[i][0], buttons[i][1])
                     time.sleep(2)
+                    time.sleep(2)  #================================ testing
+                if (image_on_screen('video_not_load.jpg', 0.9) == True): # if video don't load after waiting for it
+                    logging.error("--- C1 - video_not_load")
             pyautogui.click(refresh[0], refresh[1]) # refresh btn
             time.sleep(2)
         #       else: continue
