@@ -3,7 +3,8 @@ import cv2
 import numpy as np
 from datetime import datetime as date
 import logging #=============================== testing
-logging.basicConfig(filename='errorsLogs.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+today =  date.now().strftime("_%d-%M-%Y_%H-%M")
+logging.basicConfig(filename='errorsLogs'+ today + '.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 os.chdir('.//img')
 
