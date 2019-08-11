@@ -144,11 +144,13 @@ def bonus(x, y): # [x, y] of the button
     #============================================== begining of testing
     if (image_on_screen('video_not_load.jpg', 0.9) == True): # if video don't load after waiting for it
         logging.critical("--- D1 - video_not_load")
+        reloadVideo() # need of reload
+        time.sleep(8.5)
 
         if (image_on_screen('video_not_load.jpg', 0.9) == True): # if video don't load after waiting for it
             logging.critical("--- D2 - video_not_load")
             reloadVideo() # need of reload
-            time.sleep(31)
+        time.sleep(31)
         
     #============================================== end of testing
     
@@ -302,6 +304,8 @@ if __name__ == "__main__":
                     time.sleep(2)  #================================ testing
                 if (image_on_screen('video_not_load.jpg', 0.9) == True): # if video don't load after waiting for it
                     logging.error("--- C1 - video_not_load")
+                    reloadVideo() # need of reload
+                    time.sleep(8.5) ; time.sleep(31)
             pyautogui.click(refresh[0], refresh[1]) # refresh btn
             time.sleep(2)
         #       else: continue
