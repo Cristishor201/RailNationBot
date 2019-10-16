@@ -3,11 +3,12 @@ import cv2
 import numpy as np
 from datetime import datetime as date
 import logging #=============================== testing
-today =  date.now().strftime("_%d-%M-%Y_%H-%M")
+today =  date.now().strftime("_%d-%m-%Y_%H-%M")
 logging.basicConfig(filename='errorsLogs'+ today + '.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 os.chdir('.//img')
 
+screen = [1920, 1080] #========================================== adding option for checking resolution
 refresh = [317, 207]
 buttons = [[168, 275], [244, 275], [322, 275]] # [x,y] default
 regions = [[133, 260, 70, 30], [209, 260, 70, 30], [287, 260, 70, 30]] # [x, y, width, height]
@@ -84,7 +85,33 @@ def update_widget(word): # update setup widget (if required)
         return False
 
 def if_green_btn():
-    ################################################ mai trebuie aici
+    '''
+    lower, upper = ([26, 88, 37], [112, 161, 117])
+    suma = 0
+    calculus = 224 # or regions[2][0] - regions[0][0] + regions[2][2]
+    x = regions[0][0]
+    y = regions[0][1]
+    width = calculus
+    height = regions[0][3]
+    img = pyautogui.screenshot(region=(x, y, width, height))
+
+    lower = np.array(lower, dtype="uint8")
+    upper = np.array(upper, dtype="uint8")
+    img = np.array(img, dtype="uint8")
+
+    mask = cv2.inRange(img, lower, upper)
+    for item in mask.flat:
+        if item != 0:
+            suma += 1 #==================823 max so far
+        if suma == 900:
+            break
+    if suma == 900: # or more
+        return True
+    else:
+        return False
+    print(suma)
+    
+    ################################################ mai trebuie aici'''
     return True
 
 def image_in_region(image, region, precision=0.8): # region screen option
@@ -104,7 +131,8 @@ def image_in_region(image, region, precision=0.8): # region screen option
     else:
         return True  # image match
 
-def color_in_region(region, color_list=([40, 90, 40],[56, 128, 60]), precision=0.8): # if is color in region image
+def color_in_region(region, color_list=([26, 88, 37],[112, 161, 117]), precision=0.8): # if is color in region image
+    suma = 0
     x, y, width, height = region
     img = pyautogui.screenshot(region=(x, y, width, height))
     lower, upper = color_list
@@ -114,11 +142,15 @@ def color_in_region(region, color_list=([40, 90, 40],[56, 128, 60]), precision=0
     img = np.array(img, dtype="uint8")
     
     mask = cv2.inRange(img, lower, upper)
-    print(mask)
-    cv2.imshow('mask', mask)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-    return None
+    for item in mask.flat:
+        if item != 0:
+            suma += 1
+        if suma == 300: # or more
+            break
+    if suma == 300: # or more
+        return True
+    else:
+        return False
 
 def image_on_screen(image, precision=0.8, link=False): # full screen option
     img = pyautogui.screenshot()
@@ -227,7 +259,7 @@ def video(x, y): # [x, y] of the button
         logging.info("--- A3 - video_not_load")
 
     if (image_on_screen('no_video.jpg', 0.92) == True):
-            logging.info("--- A2 - no_video")
+            logging.info("--- A3 - no_video")
     #============================================ end testing
     
     if image_on_screen('watch_bonus_you.jpg') == True:
@@ -247,6 +279,16 @@ def video(x, y): # [x, y] of the button
         if (image_on_screen('video_not_load.jpg', 0.9) == True): # if video don't load after waiting for it
             logging.warning("--- B2 - video_not_load")
             reloadVideo() # need of reload
+        time.sleep(31)
+    elif (image_on_screen('no_video.jpg', 0.9) == True):
+        logging.warning("--- B1 - no_video")
+        reloadVideo() # need of reload
+        time.sleep(8.5)
+
+        if (image_on_screen('no_video.jpg', 0.92) == True):
+            logging.warning("--- B2 - no_video")
+            reloadVideo()
+
         time.sleep(31)
     #============================================= end of testing
     
@@ -296,16 +338,22 @@ if __name__ == "__main__":
                 #    print("True")
         #           bonus(x, y) # button
         #           time.sleep(1.5)
+                #logging.debug("nr pixeli verde - regiune " + str(i) + ": " + str(color_in_region(regions[i])))
                 if image_in_region('video_present.jpg', regions[i]) == True: # if is video
                     video(buttons[i][0], buttons[i][1]) # video
                 else:
                     bonus(buttons[i][0], buttons[i][1])
                     time.sleep(2)
-                    time.sleep(2)  #================================ testing
+                #============================================= test begining
                 if (image_on_screen('video_not_load.jpg', 0.9) == True): # if video don't load after waiting for it
                     logging.error("--- C1 - video_not_load")
                     reloadVideo() # need of reload
                     time.sleep(8.5) ; time.sleep(31)
+                if (image_on_screen('no_video.jpg', 0.9) == True): # if video don't load after waiting for it
+                    logging.error("--- C1 - video_not_load")
+                    reloadVideo() # need of reload
+                    time.sleep(8.5) ; time.sleep(31)
+                #============================================== test end
             pyautogui.click(refresh[0], refresh[1]) # refresh btn
             time.sleep(2)
         #       else: continue
@@ -316,3 +364,4 @@ if __name__ == "__main__":
         print("Program stoped by user.")
     finally:
         print("Program ended at " + date.now().strftime("%H:%M"))
+
