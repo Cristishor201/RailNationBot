@@ -4,11 +4,11 @@ import numpy as np
 from datetime import datetime as date
 import logging #=============================== testing
 today =  date.now().strftime("_%d-%m-%Y_%H-%M")
-logging.basicConfig(filename='errorsLogs'+ today + '.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+#logging.basicConfig(filename='errorsLogs'+ today + '.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 os.chdir('.//img')
 
-screen = [1920, 1080] #========================================== adding option for checking resolution
+screen = [1920, 1080]
 refresh = [317, 207]
 buttons = [[168, 275], [244, 275], [322, 275]] # [x,y] default
 regions = [[133, 260, 70, 30], [209, 260, 70, 30], [287, 260, 70, 30]] # [x, y, width, height]
@@ -19,7 +19,7 @@ continueYou = [1006, 747]
 skipVideo = [1419, 725]
 lotery = [1101, 311]
 
-stop = False # initialy -----------------------------------------------------
+stop = False # initialy -----------------
 
 closeVideo = [1440, 325]
 closeButton = [959, 614]
@@ -47,7 +47,16 @@ def if_widget_position(): # verify position of widget on the screen
     else:
         return False
 
-def update_widget(word): # update setup widget (if required)
+def adjust_resolution():
+    # daca difera
+    x, y = pyautogui.size() # curent resolution
+
+    if x != screen[0] and y != screen[1]:
+        return [x, y]
+    else:
+        return True
+
+def update_widget(word, ratio): # update setup widget (if required)
     if word == 'widget1':
         pyautogui.click(80, 998)
         time.sleep(1)
@@ -308,8 +317,18 @@ def reloadVideo():
     pyautogui.click(restartVideo)
 
 if __name__ == "__main__":
+    ratio = [1, 1]
     print("Program started at " + date.now().strftime("%H:%M"))
 
+    res = adjust_resolution()
+    if isinstance(res, bool):
+        print("Unchanged resolution")
+        ratio = [1, 1]
+        
+    else:
+        print("Your resolution: [{}, {}]".format(res[0], res[1]))
+        ratio = [x/y for x, y in zip(screen, res)]
+    '''
     if if_widget_present() == False:
         update_widget('widget1') # install the widget
     
@@ -363,5 +382,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("Program stoped by user.")
     finally:
-        print("Program ended at " + date.now().strftime("%H:%M"))
+        print("Program ended at " + date.now().strftime("%H:%M"))'''
 
