@@ -1,24 +1,37 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [Unreleased] - V2.0
 ## Added
-- Create ChangeLog.md for changes about this project
+- Create *'ChangeLog.md'* for changes about this project
 - configure if widget it's not install at all
-- open the widget, if it's hiden
+- open the widget, if it's hidden
 - update widget position, if it's misplaced by the default position
-- print the required modification, in case user want less time loading
-- option for skiping the video if it can
+- Added update for all resolutions
+- Added option if you setup wrong your resolution
+- Printing the required modification, in case user want less time loading
+- Added collected bonus before watching video from the widget
+- Added a settings file, for all favorite modifications
+- Added an emergency stop the script, by *'Esc'* button.
+- Added a standby mode to wait 15 min, before trying again to collect
+- Added a start up for multilingual
 
 ## Changed
-- new technique for reloading the video if stops
+- Changed watching video by how long their are, dynamically
+- Changed all the functions, and moved them in an external file
+- Changed to no longer unnecessary clicks, and more speed of the script
+- Changed images quality and their path
 
-## Fixed
-- if the white window appear instead of video
+## Updated
+- Updated *'.gitignore'*
+- A new relative and absolute position of the buttons
 
 ## Removed
-- technique of collecting bonuses in a row
-- technique of watched videos in a row
+- Removed technique of collecting bonuses in a row
+- Removed technique of watched videos in a row
+- Removed all the verifications if the video was finished or not
+- Removed the logging / testing blocks of code
+- Removed some unused images
 
 ## [1.1] - 2019-06-13
 ## Added
@@ -52,6 +65,3 @@ All notable changes to this project will be documented in this file.
 [Unreleased]: https://github.com/Cristishor201/RailNationBot/compare/V1.1...HEAD
 [1.1]: https://github.com/Cristishor201/RailNationBot/compare/V1.0...V1.1
 [1.0]: https://github.com/Cristishor201/RailNationBot/releases/tag/V1.0
-
-
-

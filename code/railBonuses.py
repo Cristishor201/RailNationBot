@@ -9,7 +9,6 @@ from lang.lang import lang
 from pynput import keyboard
 import psutil
 
-#logging.basicConfig(filename='errorsLogs'+ today + '.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 today =  date.now().strftime("_%d-%m-%Y_%H-%M")
 
 if __name__ == "__main__":
