@@ -29,8 +29,6 @@ if __name__ == "__main__":
         while True: # main loop
             env.refreshing()
             start = time.perf_counter()
-            if env.f_stop():
-                break
             for i in range(3):
                 # check for bonus first
                 bonus = env.bonus()
@@ -49,8 +47,6 @@ if __name__ == "__main__":
                         time.sleep(2)
                         if env.video_active() == False:
                             break
-                    if env.f_stop():
-                        break
                     time.sleep(1.5)
                     env.watch_bonus_you()
                     while True:
@@ -61,8 +57,7 @@ if __name__ == "__main__":
                             break
                     env.continue_you()
                     env.video_lotery()
-                    if env.f_stop():
-                        break
+                    
             finish = time.perf_counter()
             if env.f_stop():
                 break
