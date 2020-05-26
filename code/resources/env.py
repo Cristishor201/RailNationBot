@@ -22,9 +22,10 @@ xButton = [1148, 412] # buy lottery ticket
 closeButton = [960, 610] # limit exceed
 restartVideo = [880, 707]
 cancelVideo = [1033, 707]
+errors = [885, 650] # sudenly error
 
 _if_widget = [None, None, None] # present, open, position
-name_images = [] # assoc_1, assoc_2, continue_last, bonus_cant_already, lotery_free, lotery_bonus, bonus_you, video_present, secure_bonus, skip_buy_ticket, bonus_money, bonus_prestige
+name_images = [] # assoc_1, assoc_2, continue_last, bonus_cant_already, lotery_free, lotery_bonus, bonus_you, video_present, secure_bonus, skip_buy_ticket, bonus_money, bonus_prestige, sudenly_error
 _stop = False
 
 path = '' # for images
@@ -115,6 +116,7 @@ def update():
         cancelVideo[0:] = update_ratio(cancelVideo)
         xButton[0:] = update_ratio(xButton)
         closeButton[0:] = update_ratio(closeButton)
+        errors[0:] = update_ratio(errors)
 
         for i in range(len(py)):
             py[i][0] = int(py[i][0] * ratio[0])
@@ -236,3 +238,8 @@ def _key_press(key):
     if key == keyboard.Key.esc:
         _stop = True
         return False
+
+def errors():
+    if image_on_screen(name_images[12]):
+        pyautogui.click(errors)
+        time.sleep(1)

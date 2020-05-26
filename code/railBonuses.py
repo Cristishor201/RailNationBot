@@ -48,6 +48,7 @@ if __name__ == "__main__":
                         if env.video_active() == False:
                             break
                     time.sleep(1.5)
+                    env.errors()
                     env.watch_bonus_you()
                     while True:
                         if env.f_stop():
@@ -57,7 +58,7 @@ if __name__ == "__main__":
                             break
                     env.continue_you()
                     env.video_lotery()
-                    
+
             finish = time.perf_counter()
             if env.f_stop():
                 break
