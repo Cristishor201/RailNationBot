@@ -23,10 +23,10 @@ In this way you advance in the game, and also have more time for yourself.
 The latest version uses the widget for overall improved speed, and improved performance when a bonus need to be collected, as it jumps to the top of the widget.
 
 In **Screenshot 1** you can see an example of the widget.
-![image](Screenshoot1.PNG "Screenshoot 1")
+![image](Screenshoot1.png "Screenshoot 1")
 
 And in **Screenshot 2** you can see an example of video (ad), how it's looking.
-![image](ScreenShoot2.JPG "Screenshoot 2")
+![image](Screenshoot2.JPG "Screenshoot 2")
 
 ## Tech/framework used
 
