@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased] - V2.0
+## [V2.0] - 2020-06-25
 ## Added
 - Create *'ChangeLog.md'* for changes about this project
 - configure if widget it's not install at all
