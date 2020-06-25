@@ -2,28 +2,26 @@ import pyautogui, time, os
 import cv2
 import numpy as np
 from datetime import datetime as date
-import logging #=============================== testing
 from settings import setup
 import resources.env as env
 from lang.lang import lang
 from pynput import keyboard
-import psutil
-
-today =  date.now().strftime("_%d-%m-%Y_%H-%M")
 
 if __name__ == "__main__":
     ratio = [1, 1]
     ok = 0
-    print("Program started at ", today)
+
+    pyautogui.confirm(text="The program started at {}.".format(date.now().strftime("%H-%M")), title='Started', buttons=['OK'])
+    print("Program started at", date.now().strftime("%H-%M"))
 
     Resolution, Language = setup()
     if Resolution is None:
         Resolution = [pyautogui.size().width, pyautogui.size().height]
-        print("myResolution= [{}][{}]".format(Resolution))
+        print("myResolution= {}".format(Resolution))
 
     env.init(Resolution, Language)
     env.update()
-    print(date.now().strftime("%H-%M"), " - CPU - ", psutil.cpu_percent(), "%")
+    print(date.now().strftime("%H-%M"))
 
     with keyboard.Listener(on_press=env._key_press) as listener:
         while True: # main loop
@@ -69,4 +67,5 @@ if __name__ == "__main__":
 
         #while end
         listener.join()
-    message = pyautogui.confirm(text="The program finished succesefully.", title='Finished', buttons=['OK', 'Cancel'])
+    pyautogui.confirm(text="The program finished succesefully at {}.".format(date.now().strftime("%H-%M")), title='Finished', buttons=['OK'])
+    print("Program stopped at", date.now().strftime("%H-%M"))
