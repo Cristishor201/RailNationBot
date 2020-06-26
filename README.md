@@ -48,7 +48,7 @@ And in **Screenshot 2** you can see an example of video (ad), how it's looking.
    1. Put the folder in your name documents or wherever you want.  
 Make sure you don't change the name folder `img`, or any image name or file path.
 
-   2. Run [install.py]("code/install.py") from the main **code** folder.
+   2. Run [install.py](code/install.py) from the main **code** folder.
 
 ## Usage
 
