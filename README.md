@@ -1,57 +1,68 @@
 Rail Nation Bot
 ===
 
-A bot which automatically plays the game [Rail Nation](https://www.rail-nation.com). For the moment it only collect all the bonuses from train station for you and your team, and also it's watching ads for you.
+A bot which automatically plays the game [Rail Nation](https://www.rail-nation.com). For the moment it only collect all the bonuses from train station for you and your team, and also it's watching ads.
 
 ## Features
 
   - [x] collect all the bonuses for you & your team
   - [x] watch all the ads for you & your team
-  - [ ] reload page, when video it stucks
-  - [ ] stop it by a hot key, or the stop button
+  - [x] store rewards (from watching ads) like free money, research points, free tickets
+  - [x] stop the program with a key while running, or you can close it manually.
+  - [ ] reload page when video it stucks
+  - [ ] distribute research points
+  - [ ] leveling a building in some priority order.
 
 ## Motivation
 
-I started to make this bot, because I found it usefull saving time. Let it collecting all the bonuses for you, meanwhile you relax, eat, make a shower, or pray.
+I started to make this bot, because I found it useful saving time. Let it collecting all the bonuses for you, meanwhile you relax, eat, make a shower, or pray.
 In this way you advance in the game, and also have more time for yourself.
 
 ## Screenshots
 
-In **Screenshot 1** -> you can see how the code it's working. It collect all bonuses (0-1-2), and then it goes next to your teammates (association), and colect for them too. If you don't know yet, when collecting for others, it triger a chance for winning a lotery ticket, with extra bonuses or other surprises for you.
-![image](Screenshoot1.JPG "Screenshoot 1")
+The latest version uses the widget for overall improved speed, and improved performance when a bonus need to be collected, as it jumps to the top of the widget.
 
-In **Screenshot 2** -> after collecting all bonuses, it begin watching adds for you (0-1-2), and then for your teammates (3). This would give you more money, and other surprises like research points, but less chance winning a lotery ticket.
+In **Screenshot 1** you can see an example of the widget.
+![image](Screenshoot1.png "Screenshoot 1")
+
+And in **Screenshot 2** you can see an example of video (ad), how it's looking.
 ![image](Screenshoot2.JPG "Screenshoot 2")
-
-And in **Screenshot 3** -> you can see an example of video (ad), how it's looking.
-![image](ScreenShoot3.JPG "Screenshoot 3")
 
 ## Tech/framework used
 
 **Built with**
 
-   * [Python](https://docs.python.org/3/) ( verssion 3.7.2) running on Windows 7, 64 bit
+   * [Python](https://docs.python.org/3/) ( version 3.8.3) running on Windows 7, 64 bit
 
 **Modules used**
-   * *os* .......................... -> changing the curent folder for using images
-   * *time* ..................... -> waiting for the train station to load in browser, or the ad to finish.
+   * *os* .......................... -> changing the current folder for using images
+   * *time* ..................... -> decreased CPU usage
    * *pyautogui* .......... -> click and collect bonuses. It has the main use on this program.
-   * *cv2* and *numpy* -> for a [special searching function](https://github.com/drov0/python-imagesearch), which belong to [Martin Lees](https://github.com/drov0), and it's far away more advanced than that from pyautogui.
+   * *cv2* and *numpy* -> for image recognition
+   * *sys* ....................... -> for stopped the program
+   * *pynput* ................... -> pause the program by key pressed
+   * *datetime* ................ -> display the started and end time.
 
 ## Installation
 
    1. Put the folder in your name documents or wherever you want.  
-Make sure you don't change the name forlder `img`, or any image name.
+Make sure you don't change the name folder `img`, or any image name or file path.
+
+   2. Run [install.py]("code/install.py") from the main **code** folder.
 
 ## Usage
 
-1. Make sure you press the button `Train station` in your middle-right toolbar, and you have full screen of your browser. For now it works only for `1920 x 1080` resolution.
+1. Make sure you are in the main map window, in game, and if you are using chrome you are logged on in the browser. The program it was designed to work for `1920 x 1080` resolution, but it was added an option for calculating if there it's other resolution than default one.
 
-2. Then open the program, and put it on the left side of your window above the browser. Then press F5, or Run/Run module , and then it will firstly mute the sound for you, and then starting to collect ... and at the end, it turn on the sound, back. 
+2. Run the program.
 
-### Issues
+3. When meeting a confirmation window of starting, make sure that the browser, is right underneath of that window. The program literally click the buttons.
 
-If you want to stop it, you need to move the mouse to the top-left corner of your screen, until it stops; or trying to kill it manually.
+### Stop the program
+
+For stop it, all you need to do is pressing `esc` key from the keyboard, and within ~ 4 sec, it should display the next message, that the program was stopped by the user. If not, chances are that the script is in within 15 min waiting time, so you can stop the script easily pressing `ctrl + c` from the command window.
+
+Alternatively, you can move the mouse to the top-left corner of your screen, until it stops, as this is the default behaviour of the *pyautogui* module.
 
 ## Contributing
 
@@ -59,6 +70,8 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details about my code of cond
 
 ## Versioning
 All changes can be see at [CHANGELOG.md](CHANGELOG.md)
+
+&ndash; [V2.0](https://github.com/Cristishor201/RailNationBot/releases/tag/V2.0)
 
 &ndash; [V1.1](https://github.com/Cristishor201/RailNationBot/releases/tag/V1.1)
 

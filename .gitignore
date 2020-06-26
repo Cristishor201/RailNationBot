@@ -1,2 +1,6 @@
 
 Thumbs.db
+.gitignore
+code/img/Thumbs.db
+.idea
+*.pyc
